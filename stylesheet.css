@@ -32,12 +32,18 @@ tr:after{
 tr:hover:after{
 	opacity:1;
 }
-.accounts,.transfers{
+.accounts,.transfers,table{
 	padding-left:2em;
 }
-td.green,td.red{
+.detail{
 	border-left:1px solid #000;
 	padding-left:.5em;
+}
+.closed{
+	opacity:.25;
+}
+.hidden{
+	display:none;
 }
 .green{
 	color:#008000;
