@@ -1,6 +1,7 @@
 *{
 	cursor:default;
 	font-family:"montserratLight";
+	font-variant-numeric:tabular-nums;
 	user-select:none;
 }
 #loans{
@@ -34,7 +35,7 @@ tr:hover:after{
 .accounts,.transfers{
 	padding-left:2em;
 }
-.green,.red{
+td.green,td.red{
 	border-left:1px solid #000;
 	padding-left:.5em;
 }
