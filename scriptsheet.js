@@ -48,7 +48,11 @@ function renderOverview(){
 			}else{
 				colour=`red`
 			}
-			document.getElementById(loans[i1].counterparty+` Accounts`).innerHTML+=`<details name="account"><summary class="`+state+`">`+loans[i1].accounts[i2].title+` <span class="`+colour+`">`+loans[i1].accounts[i2].transfersSum.toFixed(2)+`</span></summary><table class="`+state+`" id="`+loans[i1].counterparty+` `+loans[i1].accounts[i2].title+` Transfers" class="transfers"></table></details>`
+			if(loans[i1].accounts[i2].interest){
+				document.getElementById(loans[i1].counterparty+` Accounts`).innerHTML+=`<details name="account"><summary class="`+state+`">`+loans[i1].accounts[i2].title+` <span class="`+colour+`">`+loans[i1].accounts[i2].transfersSum.toFixed(2)+`</span> at `+loans[i1].accounts[i2].interest*100+`% interest per year</summary><table class="`+state+`" id="`+loans[i1].counterparty+` `+loans[i1].accounts[i2].title+` Transfers" class="transfers"></table></details>`
+			}else{
+				document.getElementById(loans[i1].counterparty+` Accounts`).innerHTML+=`<details name="account"><summary class="`+state+`">`+loans[i1].accounts[i2].title+` <span class="`+colour+`">`+loans[i1].accounts[i2].transfersSum.toFixed(2)+`</span></summary><table class="`+state+`" id="`+loans[i1].counterparty+` `+loans[i1].accounts[i2].title+` Transfers" class="transfers"></table></details>`
+			}
 			for(i3=0;i3<loans[i1].accounts[i2].transfers.length;i3++){
 				if(loans[i1].accounts[i2].transfers[i3][1]>0){
 					colour=`green`
