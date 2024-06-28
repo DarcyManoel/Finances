@@ -4,8 +4,34 @@
 	font-variant-numeric:tabular-nums;
 	user-select:none;
 }
+#menubar{
+	background-color:#efe9e1;
+	border-radius:50px;
+	height:120px;
+	left:50vw;
+	padding-left:20px;
+	padding-right:20px;
+	position:fixed;
+	text-align:center;
+	top:0;
+	transform:translate(-50%,-50%);
+}
+#menubar img{
+	margin-left:1vh;
+	margin-right:1vh;
+	position:relative;
+	top:55%;
+	width:4vh;
+}
+#downloadLabel,#uploadLabel{
+	cursor:pointer;
+}
+#download,#upload{
+	display:none;
+}
 #loans{
 	display:inline-block;
+	margin-top:100px;
 }
 @font-face{
 	font-family:"montserratLight";

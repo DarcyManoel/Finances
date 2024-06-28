@@ -6,9 +6,14 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<title>Finances</title>
 	</head>
-	<body onLoad="renderOverview()">
+	<body>
+		<div id="menubar">
+			<label for="upload"><img id="uploadLabel" src="images/upload.svg"/></label>
+			<input id="upload" type="file" onChange="uploadMemory(this)">
+			<label for="download"><img id="downloadLabel" src="images/download.svg"/></label>
+			<button id="download" type="button" onClick="downloadMemory()">Download Memory</button>
+		</div>
 		<div id="loans"></div>
 	</body>
-	<script type="text/javascript" src="finances.js"></script>
 	<script type="text/javascript" src="scriptsheet.js"></script>
 </html>
