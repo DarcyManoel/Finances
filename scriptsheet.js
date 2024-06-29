@@ -15,8 +15,8 @@ function calculateAdditionalInformation(){
 					date2=new Date(loans[i1].accounts[i2].transfers[i3][0].join(`/`))
 					dayDiff=Math.round((date2.getTime()-date1.getTime())/(1000*3600*24))
 					loans[i1].accounts[i2].transfers[i3].push(dayDiff)
-					if(loans[i1].accounts[i2].interest){
-						loans[i1].accounts[i2].transfers[i3].push(((loans[i1].accounts[i2].interest/365)*transfersSum)*dayDiff)
+					if(loans[i1].accounts[i2].interestRate){
+						loans[i1].accounts[i2].transfers[i3].push(((loans[i1].accounts[i2].interestRate/365)*transfersSum)*dayDiff)
 						transfersInterest=transfersInterest+loans[i1].accounts[i2].transfers[i3][3]
 					}
 				}
@@ -53,8 +53,8 @@ function renderOverview(){
 			}else{
 				colour=`red`
 			}
-			if(loans[i1].accounts[i2].interest){
-				document.getElementById(loans[i1].counterparty+` Accounts`).innerHTML+=`<details name="account"><summary class="`+state+`">`+loans[i1].accounts[i2].title+` <span class="`+colour+`">`+loans[i1].accounts[i2].transfersSum.toFixed(2)+`</span> at `+loans[i1].accounts[i2].interest*100+`% interest per year</summary><table class="`+state+`" id="`+loans[i1].counterparty+` `+loans[i1].accounts[i2].title+` Transfers" class="transfers"></table></details>`
+			if(loans[i1].accounts[i2].interestRate){
+				document.getElementById(loans[i1].counterparty+` Accounts`).innerHTML+=`<details name="account"><summary class="`+state+`">`+loans[i1].accounts[i2].title+` <span class="`+colour+`">`+loans[i1].accounts[i2].transfersSum.toFixed(2)+`</span> at `+loans[i1].accounts[i2].interestRate*100+`% interest per year</summary><table class="`+state+`" id="`+loans[i1].counterparty+` `+loans[i1].accounts[i2].title+` Transfers" class="transfers"></table></details>`
 			}else{
 				document.getElementById(loans[i1].counterparty+` Accounts`).innerHTML+=`<details name="account"><summary class="`+state+`">`+loans[i1].accounts[i2].title+` <span class="`+colour+`">`+loans[i1].accounts[i2].transfersSum.toFixed(2)+`</span></summary><table class="`+state+`" id="`+loans[i1].counterparty+` `+loans[i1].accounts[i2].title+` Transfers" class="transfers"></table></details>`
 			}
@@ -100,7 +100,7 @@ function downloadMemory(){
 	const dateParseGuide=`(yyyy-mm-dd)`.padStart(29).padStart(31,` \t`)
 	var file=new File(
 		// content
-		[` \t`+filename+`\n`+dateParseGuide+`\n`+loansMemory],
+		[JSON.stringify(loans)],
 		// filename
 		filename,
 		// filetype
@@ -123,22 +123,7 @@ function uploadMemory(that){
 	fileReader.readAsText(files[0])
 	fileReader.onload=function(e){
 		var output=e.target.result
-		lines=output.split(`\n`)
-		for(i1=0;i1<lines.length;i1++){
-			// test for comment
-			if(lines[i1].startsWith(` `))continue
-			// loans specific line tests
-			if(section==`loans`){
-				// parse counterparty
-				if(lines[i1].startsWith(`c`))loans.push({counterparty:lines[i1].replace(`c\t`,``),accounts:[]})
-				// parse account
-				if(lines[i1].startsWith(`a`))loans[loans.length-1].accounts.push({title:lines[i1].replace(`a\t\t`,``).split(` | `)[0],transfers:[],interestRate:parseFloat(lines[i1].replace(`a\t\t`,``).split(` | `)[1])})
-				// parse transfer
-				if(lines[i1].startsWith(`t`))loans[loans.length-1].accounts[loans[loans.length-1].accounts.length-1].transfers.push([lines[i1].replace(`t\t\t\t`,``).split(` | `)[0].split(`-`).map(Number),parseFloat(lines[i1].replace(`t\t\t\t`,``).split(` | `)[1])])
-			}
-			// tests for section
-			if(lines[i1].startsWith(`loans`))section=`loans`
-		}
+		loans=JSON.parse(output)
 		calculateAdditionalInformation()
 	}
 }
