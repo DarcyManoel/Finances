@@ -1,0 +1,96 @@
+@font-face{
+	font-family:"montserratLight";
+	src:url("fonts/Montserrat-Light.ttf");
+}
+@font-face{
+	font-family:"montserratBold";
+	src:url("fonts/Montserrat-Medium.ttf");
+}
+*{
+	border-spacing:0;
+	cursor:default;
+	font-family:"montserratLight";
+	font-variant-numeric:tabular-nums;
+	margin:0;
+	user-select:none;
+}
+body{
+	background-color:#1e2040;
+	color:#fff;
+	display:flex;
+	flex-direction:column;
+}
+#menu{
+	align-items:center;
+	background-color:#2c325c;
+	display:flex;
+	justify-content:space-between;
+	padding:1rem;
+	position:sticky;
+	top:0;
+	width:calc(100vw - 2rem);
+	z-index:1;
+}
+#menu #title{
+	font-family:"montserratBold";
+	font-size:2.8rem;
+}
+#settings{
+	display:flex;
+	gap:.5rem;
+}
+#settings label,
+#settings img{
+	cursor:pointer;
+}
+#settings img{
+	height:2.5rem;
+}
+.hidden{
+	display:none;
+}
+#content{
+	margin:1rem;
+	width:calc(100% - 2rem);
+}
+#contentLoans{
+	display:flex;
+	gap:1rem;
+	height:80vh;
+	white-space:nowrap;
+	width:100%;
+}
+#contentLoans div{
+	border-radius:1rem;
+	border:.5rem solid #25294b;
+	display:inline-block;
+	flex:1 1 0%;
+	height:100%;
+	overflow:scroll;
+	padding:1rem;
+}
+details{
+	font-size:.75rem;
+	padding-left:2rem;
+	pointer-events:none;
+}
+summary{
+	font-size:1rem;
+	left:-1.75rem;
+	pointer-events:initial;
+	position:relative;
+}
+details::marker,
+summary,
+summary span{
+	cursor:pointer;
+}
+.green{
+	color:#008000;
+}
+.red{
+	color:#ff0000;
+}
+span{
+	color:rgba(255,255,255,.5);
+}

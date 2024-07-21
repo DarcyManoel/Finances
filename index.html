@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="icon" href="images/icon.svg">
+		<link rel="stylesheet" type="text/css" href="stylesheet.css">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<title>Finances</title>
+	</head>
+	<body>
+		<div id="menu">
+			<div id="title">FINANCES</div>
+			<div id="settings">
+				<label>
+					<input class="hidden" type="file" onChange="uploadMemory(this)"/>
+					<img src="images/upload.svg"/>
+				</label>
+				<label>
+					<input class="hidden" type="button" onClick="downloadMemory()"/>
+					<img src="images/download.svg"/>
+				</label>
+			</div>
+		</div>
+		<div id="content">
+			<div id="contentLoans">
+				<div id="loansCounterparties"></div>
+				<div id="loansAccounts"></div>
+				<div id="loansTransfers"></div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="scriptsheet.js"></script>
+</html>
