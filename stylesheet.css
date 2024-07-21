@@ -31,8 +31,10 @@ body{
 	width:calc(100vw - 2rem);
 	z-index:1;
 }
-#menu #title{
+label{
 	font-family:"montserratBold";
+}
+#menu #title{
 	font-size:2.8rem;
 }
 #settings{
@@ -60,14 +62,25 @@ body{
 	white-space:nowrap;
 	width:100%;
 }
-#contentLoans div{
+#loansCounterpartiesWrapper,
+#loansAccountsWrapper,
+#loansTransfersWrapper{
 	border-radius:1rem;
 	border:.5rem solid #25294b;
 	display:inline-block;
 	flex:1 1 0%;
 	height:100%;
 	overflow:scroll;
-	padding:1rem;
+	padding:.5rem;
+	padding-left:1rem;
+}
+#loansCounterpartiesWrapper label,
+#loansAccountsWrapper label,
+#loansTransfersWrapper label{
+	bottom:5vh;
+	color:#2c325c;
+	font-size:1.2rem;
+	position:absolute;
 }
 details{
 	font-size:.75rem;

@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<div id="menu">
-			<div id="title">FINANCES</div>
+			<label id="title">FINANCES</label>
 			<div id="settings">
 				<label>
 					<input class="hidden" type="file" onChange="uploadMemory(this)"/>
@@ -22,9 +22,18 @@
 		</div>
 		<div id="content">
 			<div id="contentLoans">
-				<div id="loansCounterparties"></div>
-				<div id="loansAccounts"></div>
-				<div id="loansTransfers"></div>
+				<div id="loansCounterpartiesWrapper">
+					<label>COUNTERPARTIES</label>
+					<div id="loansCounterparties"></div>
+				</div>
+				<div id="loansAccountsWrapper">
+					<label>ACCOUNTS</label>
+					<div id="loansAccounts"></div>
+				</div>
+				<div id="loansTransfersWrapper">
+					<label>TRANSFERS</label>
+					<div id="loansTransfers"></div>
+				</div>
 			</div>
 		</div>
 	</body>
