@@ -71,16 +71,22 @@ label{
 	flex:1 1 0%;
 	height:100%;
 	overflow:scroll;
-	padding:.5rem;
-	padding-left:1rem;
+	padding:0 0 .5rem 1rem;
 }
 #loansCounterpartiesWrapper label,
 #loansAccountsWrapper label,
 #loansTransfersWrapper label{
-	bottom:5vh;
-	color:#2c325c;
+	background-color:#1e2040;
+	border-bottom:2px solid #2c325c;
+	color:rgba(255,255,255,.5);
+	display:block;
 	font-size:1.2rem;
-	position:absolute;
+	margin:0 0 .5rem 0;
+	padding:.75rem .2rem .2rem .2rem;
+	position:sticky;
+	top:0;
+	width:calc(100% - 1.4rem);
+	z-index:1;
 }
 details{
 	font-size:.75rem;
