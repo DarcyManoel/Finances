@@ -34,9 +34,6 @@ body{
 	width:calc(100vw - 2rem);
 	z-index:1;
 }
-label{
-	font-family:"montserratBold";
-}
 #menu #title{
 	font-size:2.8rem;
 }
@@ -76,14 +73,10 @@ label{
 	overflow:scroll;
 	padding:0 0 .5rem 1rem;
 }
-#loansCounterpartiesWrapper label,
-#loansAccountsWrapper label,
-#loansTransfersWrapper label{
+h3{
 	background-color:#1e2040;
 	border-bottom:2px solid #2c325c;
 	color:rgba(255,255,255,.5);
-	display:block;
-	font-size:1.2rem;
 	margin:0 0 .5rem 0;
 	padding:.75rem .2rem .2rem .2rem;
 	position:sticky;
