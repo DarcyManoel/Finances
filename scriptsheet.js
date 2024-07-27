@@ -122,11 +122,29 @@ function createLoanEntry(section,counterpartyIndex,accountIndex){
 	var stage
 	if(section==`counterparties`){
 		stage=0
-		var title=prompt(`Who is the counterparty to the loan?`)
+		var i2=1
+		for(i1=0;i1<i2;i1++){
+			var title=prompt(`Who is the counterparty to the loan?`)
+			for(i3=0;i3<loans.length;i3++){
+				if(loans[i3].counterparty==title){
+					i2++
+					alert(`That counterparty already exists.`)
+				}
+			}
+		}
 		loans.push({accounts:[],counterparty:title})
 	}else if(section==`accounts`){
 		stage=1
-		var title=prompt(`What is the purpose of the loan?`)
+		var i2=1
+		for(i1=0;i1<i2;i1++){
+			var title=prompt(`What is the purpose of the loan?`)
+			for(i3=0;i3<loans[counterpartyIndex].accounts.length;i3++){
+				if(loans[counterpartyIndex].accounts[i3].title==title){
+					i2++
+					alert(`That account already exists.`)
+				}
+			}
+		}
 		loans[globalCounterpartyIndex].accounts.push({title:title,transfers:[]})
 	}else if(section==`transfers`){
 		stage=2
@@ -134,15 +152,15 @@ function createLoanEntry(section,counterpartyIndex,accountIndex){
 			When did the transfer occur?\n
 			(format: yyyy-mm-dd)`)
 		while(!/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/.test(date)){
+			alert(`You did not enter a date.`)
 			date=prompt(`
-				You did not enter a date,\n
 				When did the transfer occur?\n
 				(format: yyyy-mm-dd)`)
 		}
 		var transfer=prompt(`How much money was transferred?`)
 		while(!/^\-?[0-9]+$/.test(transfer)){
+			alert(`You did not enter a number.`)
 			var transfer=prompt(`
-				You did not enter a number,\n
 				How much money was transferred?\n
 				(format: non-segmented numbers only)`)
 		}
