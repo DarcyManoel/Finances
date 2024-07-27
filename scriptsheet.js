@@ -52,8 +52,8 @@ var globalCounterpartyIndex=0
 var globalAccountIndex=0
 var open=0
 function renderLoans(isOpen,stage,counterpartyIndex,accountIndex){
-	if(counterpartyIndex)globalCounterpartyIndex=counterpartyIndex
-	if(accountIndex)globalAccountIndex=accountIndex
+	if(counterpartyIndex+1)globalCounterpartyIndex=counterpartyIndex
+	if(accountIndex+1)globalAccountIndex=accountIndex
 	var colour
 	var contentQueue=``
 	if(isOpen){
