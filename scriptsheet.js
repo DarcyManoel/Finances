@@ -130,13 +130,21 @@ function createLoanEntry(section,counterpartyIndex,accountIndex){
 		loans[globalCounterpartyIndex].accounts.push({title:title,transfers:[]})
 	}else if(section==`transfers`){
 		stage=2
-		var date=prompt(`When did the transfer occur?\n(format: yyyy-mm-dd)`)
+		var date=prompt(`
+			When did the transfer occur?\n
+			(format: yyyy-mm-dd)`)
 		while(!/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/.test(date)){
-			date=prompt(`You did not enter a date,\nWhen did the transfer occur?\n(format: yyyy-mm-dd)`)
+			date=prompt(`
+				You did not enter a date,\n
+				When did the transfer occur?\n
+				(format: yyyy-mm-dd)`)
 		}
 		var transfer=prompt(`How much money was transferred?`)
 		while(!/^\-?[0-9]+$/.test(transfer)){
-			var transfer=prompt(`You did not enter a number,\nHow much money was transferred?\n(format: non-segmented numbers only)`)
+			var transfer=prompt(`
+				You did not enter a number,\n
+				How much money was transferred?\n
+				(format: non-segmented numbers only)`)
 		}
 		loans[counterpartyIndex].accounts[accountIndex].transfers.push({date:[parseInt(date.split(`-`)[0]),date.split(`-`)[1],date.split(`-`)[2]],transfer:parseInt(transfer)})
 	}
