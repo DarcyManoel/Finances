@@ -100,6 +100,10 @@ details{
 	padding:0 0 0 2rem;
 	pointer-events:none;
 }
+details:hover,
+details[open]{
+	border-left:.2rem solid #25294b;
+}
 summary{
 	font-size:1rem;
 	left:-1.75rem;
