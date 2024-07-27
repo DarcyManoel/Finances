@@ -9,7 +9,7 @@ function uploadMemory(that){
 		calculateAdditionalInformation()
 	}
 }
-function calculateAdditionalInformation(){
+function calculateAdditionalInformation(stage){
 	for(i1=0;i1<loans.length;i1++){
 		var accountsSum=0
 		for(i2=0;i2<loans[i1].accounts.length;i2++){
@@ -32,23 +32,27 @@ function calculateAdditionalInformation(){
 		}
 		loans[i1].accountsSum=parseFloat(accountsSum.toFixed(2))
 	}
-	sortArrays()
+	sortArrays(stage)
 }
-function sortArrays(){
+function sortArrays(stage){
 	loans=loans.sort(function(a,b){return a.accountsSum-b.accountsSum})
 	for(i1=0;i1<loans.length;i1++){
 		loans[i1].accounts=loans[i1].accounts.sort(function(a,b){return a.transfersSum-b.transfersSum})
 	}
-	renderMenu()
+	renderMenu(stage)
 }
 var loans=[]
-function renderMenu(){
+function renderMenu(stage){
 	document.getElementById(`content`).classList.remove(`hidden`)
 	if(loans.length){
-		renderLoans(``,0)
+		renderLoans(``,stage??0)
 	}
 }
+var globalCounterpartyIndex=0
+var globalAccountIndex=0
 function renderLoans(isOpen,stage,counterpartyIndex,accountIndex){
+	if(counterpartyIndex)globalCounterpartyIndex=counterpartyIndex
+	if(accountIndex)globalAccountIndex=accountIndex
 	var colour
 	var contentQueue=``
 	if(isOpen){
@@ -67,33 +71,45 @@ function renderLoans(isOpen,stage,counterpartyIndex,accountIndex){
 		}
 		document.getElementById(`loansCounterparties`).innerHTML=contentQueue
 		document.getElementById(`loansAccounts`).innerHTML=``
+		document.getElementById(`loansAccountsSectionHeader`).innerHTML=`
+			<span>ACCOUNTS</span>`
 		document.getElementById(`loansTransfers`).innerHTML=``
+		document.getElementById(`loansTransfersSectionHeader`).innerHTML=`
+			<span>TRANSFERS</span>`
 	}
 	if(stage==1){
-		for(i1=0;i1<loans[counterpartyIndex].accounts.length;i1++){
-			colour=loans[counterpartyIndex].accounts[i1].transfersSum>=0?`green`:`red`
+		document.getElementById(`loansAccountsSectionHeader`).innerHTML=`
+			<span>ACCOUNTS</span>
+			<span onClick="createLoanEntry('accounts',${globalCounterpartyIndex})">+</span>`
+		for(i1=0;i1<loans[globalCounterpartyIndex].accounts.length;i1++){
+			colour=loans[globalCounterpartyIndex].accounts[i1].transfersSum>=0?`green`:`red`
 			contentQueue+=`
-				<details onClick="renderLoans(this.open,2,${counterpartyIndex},${i1})" class="${colour}" name="account">
+				<details onClick="renderLoans(this.open,2,${globalCounterpartyIndex},${i1})" class="${colour}" name="account">
 					<summary>
-						<span>${loans[counterpartyIndex].accounts[i1].title}</span>
+						<span>${loans[globalCounterpartyIndex].accounts[i1].title}</span>
 					</summary>
-					${loans[counterpartyIndex].accounts[i1].transfersSum>0?`$${numberWithCommas(loans[counterpartyIndex].accounts[i1].transfersSum.toFixed(2))}`:`${loans[counterpartyIndex].accounts[i1].transfersSum<0?`-$${numberWithCommas(Math.abs(loans[counterpartyIndex].accounts[i1].transfersSum.toFixed(2)))}`:`$0`}`} <span>outstanding</span>
-					${loans[counterpartyIndex].accounts[i1].interestRate?`<br>${loans[counterpartyIndex].accounts[i1].interestRate*100}% <span>interest per annum</span>`:``}
+					${loans[globalCounterpartyIndex].accounts[i1].transfersSum>0?`$${numberWithCommas(loans[globalCounterpartyIndex].accounts[i1].transfersSum.toFixed(2))}`:`${loans[globalCounterpartyIndex].accounts[i1].transfersSum<0?`-$${numberWithCommas(Math.abs(loans[globalCounterpartyIndex].accounts[i1].transfersSum.toFixed(2)))}`:`$0`}`} <span>outstanding</span>
+					${loans[globalCounterpartyIndex].accounts[i1].interestRate?`<br>${loans[globalCounterpartyIndex].accounts[i1].interestRate*100}% <span>interest per annum</span>`:``}
 				</details>`
 		}
 		document.getElementById(`loansAccounts`).innerHTML=contentQueue
 		document.getElementById(`loansTransfers`).innerHTML=``
+		document.getElementById(`loansTransfersSectionHeader`).innerHTML=`
+			<span>TRANSFERS</span>`
 	}else if(stage==2){
-		for(i1=0;i1<loans[counterpartyIndex].accounts[accountIndex].transfers.length;i1++){
-			colour=loans[counterpartyIndex].accounts[accountIndex].transfers[i1].transfer>=0?`green`:`red`
+		document.getElementById(`loansTransfersSectionHeader`).innerHTML=`
+			<span>TRANSFERS</span>
+			<span onClick="createLoanEntry('transfers',${globalCounterpartyIndex},${globalAccountIndex})">+</span>`
+		for(i1=0;i1<loans[globalCounterpartyIndex].accounts[globalAccountIndex].transfers.length;i1++){
+			colour=loans[globalCounterpartyIndex].accounts[globalAccountIndex].transfers[i1].transfer>=0?`green`:`red`
 			contentQueue+=`
 				<details class="${colour}">
 					<summary>
-						<span>${loans[counterpartyIndex].accounts[accountIndex].transfers[i1].date.join(`-`)}</span>
+						<span>${loans[globalCounterpartyIndex].accounts[globalAccountIndex].transfers[i1].date.join(`-`)}</span>
 					</summary>
-					${loans[counterpartyIndex].accounts[accountIndex].transfers[i1].transfer.toFixed(2)>0?`+$${numberWithCommas(loans[counterpartyIndex].accounts[accountIndex].transfers[i1].transfer.toFixed(2))}`:`-$${numberWithCommas(Math.abs(loans[counterpartyIndex].accounts[accountIndex].transfers[i1].transfer).toFixed(2))}`}
-					${loans[counterpartyIndex].accounts[accountIndex].transfers[i1].period?`<br><span>${loans[counterpartyIndex].accounts[accountIndex].transfers[i1].period} days from last transfer</span>`:``}
-					${loans[counterpartyIndex].accounts[accountIndex].interestRate?`<br><span>${loans[counterpartyIndex].accounts[accountIndex].transfers[i1].interest?numberWithCommas(loans[counterpartyIndex].accounts[accountIndex].transfers[i1].interest.toFixed(2)):``}</span>`:``}
+					${loans[globalCounterpartyIndex].accounts[globalAccountIndex].transfers[i1].transfer.toFixed(2)>0?`+$${numberWithCommas(loans[globalCounterpartyIndex].accounts[globalAccountIndex].transfers[i1].transfer.toFixed(2))}`:`-$${numberWithCommas(Math.abs(loans[globalCounterpartyIndex].accounts[globalAccountIndex].transfers[i1].transfer).toFixed(2))}`}
+					${loans[globalCounterpartyIndex].accounts[globalAccountIndex].transfers[i1].period?`<br><span>${loans[globalCounterpartyIndex].accounts[globalAccountIndex].transfers[i1].period} days from last transfer</span>`:``}
+					${loans[globalCounterpartyIndex].accounts[globalAccountIndex].interestRate?`<br><span>${loans[globalCounterpartyIndex].accounts[globalAccountIndex].transfers[i1].interest?numberWithCommas(loans[globalCounterpartyIndex].accounts[globalAccountIndex].transfers[i1].interest.toFixed(2)):``}</span>`:``}
 				</details>`
 		}
 		document.getElementById(`loansTransfers`).innerHTML=contentQueue
@@ -101,6 +117,30 @@ function renderLoans(isOpen,stage,counterpartyIndex,accountIndex){
 }
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g,`,`);
+}
+function createLoanEntry(section,counterpartyIndex,accountIndex){
+	var stage
+	if(section==`counterparties`){
+		stage=0
+		var title=prompt(`Who is the counterparty to the loan?`)
+		loans.push({accounts:[],counterparty:title})
+	}else if(section==`accounts`){
+		stage=1
+		var title=prompt(`What is the purpose of the loan?`)
+		loans[globalCounterpartyIndex].accounts.push({title:title,transfers:[]})
+	}else if(section==`transfers`){
+		stage=2
+		var date=prompt(`When did the transfer occur?\n(format: yyyy-mm-dd)`)
+		while(!/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/.test(date)){
+			date=prompt(`You did not enter a date,\nWhen did the transfer occur?\n(format: yyyy-mm-dd)`)
+		}
+		var transfer=prompt(`How much money was transferred?`)
+		while(!/^\-?[0-9]+$/.test(transfer)){
+			var transfer=prompt(`You did not enter a number,\nHow much money was transferred?\n(format: non-segmented numbers only)`)
+		}
+		loans[counterpartyIndex].accounts[accountIndex].transfers.push({date:[parseInt(date.split(`-`)[0]),date.split(`-`)[1],date.split(`-`)[2]],transfer:parseInt(transfer)})
+	}
+	calculateAdditionalInformation(stage)
 }
 function downloadMemory() {
     const date=new Date();
