@@ -81,7 +81,7 @@ function renderLoans(isOpen,stage,counterpartyIndex,accountIndex){
 	if(stage==1){
 		document.getElementById(`loansAccountsSectionHeader`).innerHTML=`
 			<span>ACCOUNTS</span>
-			<span onClick="createLoanEntry('accounts',${globalCounterpartyIndex})">+</span>`
+			<span class="createEntry" onClick="createLoanEntry('accounts',${globalCounterpartyIndex})">+</span>`
 		for(i1=0;i1<loans[globalCounterpartyIndex].accounts.length;i1++){
 			colour=loans[globalCounterpartyIndex].accounts[i1].transfersSum>=0?`green`:`red`
 			contentQueue+=`
@@ -100,7 +100,7 @@ function renderLoans(isOpen,stage,counterpartyIndex,accountIndex){
 	}else if(stage==2){
 		document.getElementById(`loansTransfersSectionHeader`).innerHTML=`
 			<span>TRANSFERS</span>
-			<span onClick="createLoanEntry('transfers',${globalCounterpartyIndex},${globalAccountIndex})">+</span>`
+			<span class="createEntry" onClick="createLoanEntry('transfers',${globalCounterpartyIndex},${globalAccountIndex})">+</span>`
 		for(i1=0;i1<loans[globalCounterpartyIndex].accounts[globalAccountIndex].transfers.length;i1++){
 			colour=loans[globalCounterpartyIndex].accounts[globalAccountIndex].transfers[i1].transfer>=0?`green`:`red`
 			contentQueue+=`
