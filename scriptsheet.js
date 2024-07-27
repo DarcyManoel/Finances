@@ -50,6 +50,7 @@ function renderMenu(stage){
 }
 var globalCounterpartyIndex=0
 var globalAccountIndex=0
+var open=0
 function renderLoans(isOpen,stage,counterpartyIndex,accountIndex){
 	if(counterpartyIndex)globalCounterpartyIndex=counterpartyIndex
 	if(accountIndex)globalAccountIndex=accountIndex
@@ -62,7 +63,7 @@ function renderLoans(isOpen,stage,counterpartyIndex,accountIndex){
 		for(i1=0;i1<loans.length;i1++){
 			colour=loans[i1].accountsSum>=0?`green`:`red`
 			contentQueue+=`
-				<details onClick="renderLoans(this.open,1,${i1})" class="${colour}" name="counterparty">
+				<details onClick="renderLoans(this.open,1,${i1})" class="${colour}" name="counterparty" ${open?`${i1==globalCounterpartyIndex?`open`:``}`:``}>
 					<summary>
 						<span>${loans[i1].counterparty}</span>
 					</summary>
@@ -84,7 +85,7 @@ function renderLoans(isOpen,stage,counterpartyIndex,accountIndex){
 		for(i1=0;i1<loans[globalCounterpartyIndex].accounts.length;i1++){
 			colour=loans[globalCounterpartyIndex].accounts[i1].transfersSum>=0?`green`:`red`
 			contentQueue+=`
-				<details onClick="renderLoans(this.open,2,${globalCounterpartyIndex},${i1})" class="${colour}" name="account">
+				<details onClick="renderLoans(this.open,2,${globalCounterpartyIndex},${i1})" class="${colour}" name="account" ${open?`${i1==globalAccountIndex?`open`:``}`:``}>
 					<summary>
 						<span>${loans[globalCounterpartyIndex].accounts[i1].title}</span>
 					</summary>
@@ -114,6 +115,7 @@ function renderLoans(isOpen,stage,counterpartyIndex,accountIndex){
 		}
 		document.getElementById(`loansTransfers`).innerHTML=contentQueue
 	}
+	open=0
 }
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g,`,`);
@@ -165,6 +167,10 @@ function createLoanEntry(section,counterpartyIndex,accountIndex){
 				(format: non-segmented numbers only)`)
 		}
 		loans[counterpartyIndex].accounts[accountIndex].transfers.push({date:[parseInt(date.split(`-`)[0]),date.split(`-`)[1],date.split(`-`)[2]],transfer:parseInt(transfer)})
+		open=1
+		calculateAdditionalInformation(0)
+		open=1
+		calculateAdditionalInformation(1)
 	}
 	calculateAdditionalInformation(stage)
 }
