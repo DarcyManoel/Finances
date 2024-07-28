@@ -179,8 +179,8 @@ function createLoanEntry(section,counterpartyIndex,accountIndex){
 	calculateAdditionalInformation(stage)
 }
 function downloadMemory() {
-    const date=new Date();
-    const filename=`financial_memory_(${date.toISOString().split(`T`)[0]}).js`
+    const arrayedDate=new Date().toISOString().replaceAll(`T`,`-`).replaceAll(`:`,`-`).split(`.`)[0].split(`-`)
+    const filename=`financials(${arrayedDate[0]}y_${arrayedDate[1]}mo_${arrayedDate[2]}d_${arrayedDate[3]}h_${arrayedDate[4]}mi_${arrayedDate[5]}s).js`
     const content=`loans=${JSON.stringify(loans,null,`\t`)}\n`
     const file=new Blob([content],{type:`text/plain`})
     const link=document.createElement(`a`)
