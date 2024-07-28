@@ -160,7 +160,7 @@ function createLoanEntry(section,counterpartyIndex,accountIndex){
 				(format: yyyy-mm-dd)`)
 		}
 		var transfer=prompt(`How much money was transferred?`)
-		while(!/^\-?[0-9]+$/.test(transfer)){
+		while(!/^\-?[0-9]+(\.[0-9][0-9]?)?$/.test(transfer)){
 			alert(`You did not enter an acceptable number.`)
 			var transfer=prompt(`
 				How much money was transferred?\n
