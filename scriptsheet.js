@@ -154,14 +154,14 @@ function createLoanEntry(section,counterpartyIndex,accountIndex){
 			When did the transfer occur?\n
 			(format: yyyy-mm-dd)`)
 		while(!/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/.test(date)){
-			alert(`You did not enter a date.`)
+			alert(`You did not enter an acceptable date.`)
 			date=prompt(`
 				When did the transfer occur?\n
 				(format: yyyy-mm-dd)`)
 		}
 		var transfer=prompt(`How much money was transferred?`)
 		while(!/^\-?[0-9]+$/.test(transfer)){
-			alert(`You did not enter a number.`)
+			alert(`You did not enter an acceptable number.`)
 			var transfer=prompt(`
 				How much money was transferred?\n
 				(format: non-segmented numbers only)`)
