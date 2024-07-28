@@ -63,7 +63,7 @@ function renderLoans(isOpen,stage,counterpartyIndex,accountIndex){
 		for(i1=0;i1<loans.length;i1++){
 			colour=loans[i1].accountsSum>=0?`green`:`red`
 			contentQueue+=`
-				<details onClick="renderLoans(this.open,1,${i1})" class="${colour}" name="counterparty" ${open?`${i1==globalCounterpartyIndex?`open`:``}`:``}>
+				<details onClick="renderLoans(this.open,1,${i1})" style="color:${colour};" name="counterparty" ${open?`${i1==globalCounterpartyIndex?`open`:``}`:``}>
 					<summary>
 						<span>${loans[i1].counterparty}</span>
 					</summary>
@@ -85,7 +85,7 @@ function renderLoans(isOpen,stage,counterpartyIndex,accountIndex){
 		for(i1=0;i1<loans[globalCounterpartyIndex].accounts.length;i1++){
 			colour=loans[globalCounterpartyIndex].accounts[i1].transfersSum>=0?`green`:`red`
 			contentQueue+=`
-				<details onClick="renderLoans(this.open,2,${globalCounterpartyIndex},${i1})" class="${colour}" name="account" ${open?`${i1==globalAccountIndex?`open`:``}`:``}>
+				<details onClick="renderLoans(this.open,2,${globalCounterpartyIndex},${i1})" style="color:${colour};" name="account" ${open?`${i1==globalAccountIndex?`open`:``}`:``}>
 					<summary>
 						<span>${loans[globalCounterpartyIndex].accounts[i1].title}</span>
 					</summary>
@@ -104,7 +104,7 @@ function renderLoans(isOpen,stage,counterpartyIndex,accountIndex){
 		for(i1=0;i1<loans[globalCounterpartyIndex].accounts[globalAccountIndex].transfers.length;i1++){
 			colour=loans[globalCounterpartyIndex].accounts[globalAccountIndex].transfers[i1].transfer>=0?`green`:`red`
 			contentQueue+=`
-				<details class="${colour}">
+				<details style="color:${colour};">
 					<summary>
 						<span>${loans[globalCounterpartyIndex].accounts[globalAccountIndex].transfers[i1].date.join(`-`)}</span>
 					</summary>

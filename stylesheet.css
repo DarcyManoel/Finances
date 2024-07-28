@@ -115,12 +115,6 @@ summary,
 summary span{
 	cursor:pointer;
 }
-.green{
-	color:#008000;
-}
-.red{
-	color:#ff0000;
-}
 span{
 	color:rgba(255,255,255,.5);
 }
