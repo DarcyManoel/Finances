@@ -67,7 +67,7 @@ function renderLoans(isOpen,stage,counterpartyIndex,accountIndex){
 					<summary>
 						<span>${loans[i1].counterparty}</span>
 					</summary>
-					${loans[i1].accountsSum>0?`$${numberWithCommas(loans[i1].accountsSum.toFixed(2))}`:`${loans[i1].accountsSum<0?`-$${numberWithCommas(Math.abs(loans[i1].accountsSum.toFixed(2)))}`:`$0`}`} <span>outstanding</span>
+					${loans[i1].accountsSum>0?`$${numberWithCommas(loans[i1].accountsSum.toFixed(2))} <span>surplus</span>`:`${loans[i1].accountsSum<0?`$${numberWithCommas(Math.abs(loans[i1].accountsSum.toFixed(2)))} <span>outstanding</span>`:`settled`}`}
 				</details>`
 		}
 		document.getElementById(`loansCounterparties`).innerHTML=contentQueue
@@ -89,7 +89,7 @@ function renderLoans(isOpen,stage,counterpartyIndex,accountIndex){
 					<summary>
 						<span>${loans[globalCounterpartyIndex].accounts[i1].title}</span>
 					</summary>
-					${loans[globalCounterpartyIndex].accounts[i1].transfersSum>0?`$${numberWithCommas(loans[globalCounterpartyIndex].accounts[i1].transfersSum.toFixed(2))}`:`${loans[globalCounterpartyIndex].accounts[i1].transfersSum<0?`-$${numberWithCommas(Math.abs(loans[globalCounterpartyIndex].accounts[i1].transfersSum.toFixed(2)))}`:`$0`}`} <span>outstanding</span>
+					${loans[globalCounterpartyIndex].accounts[i1].transfersSum>0?`$${numberWithCommas(loans[globalCounterpartyIndex].accounts[i1].transfersSum.toFixed(2))} <span>surplus</span>`:`${loans[globalCounterpartyIndex].accounts[i1].transfersSum<0?`$${numberWithCommas(Math.abs(loans[globalCounterpartyIndex].accounts[i1].transfersSum.toFixed(2)))} <span>outstanding</span>`:`settled`}`}
 					${loans[globalCounterpartyIndex].accounts[i1].interestRate?`<br>${loans[globalCounterpartyIndex].accounts[i1].interestRate*100}% <span>interest per annum</span>`:``}
 				</details>`
 		}
