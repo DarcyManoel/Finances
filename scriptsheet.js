@@ -127,6 +127,7 @@ function createLoanEntry(section,counterpartyIndex,accountIndex){
 		var i2=1
 		for(i1=0;i1<i2;i1++){
 			var title=prompt(`Who is the counterparty to the loan?`)
+			if(!title)return
 			for(i3=0;i3<loans.length;i3++){
 				if(loans[i3].counterparty==title){
 					i2++
@@ -140,6 +141,7 @@ function createLoanEntry(section,counterpartyIndex,accountIndex){
 		var i2=1
 		for(i1=0;i1<i2;i1++){
 			var title=prompt(`What is the purpose of the loan?`)
+			if(!title)return
 			for(i3=0;i3<loans[counterpartyIndex].accounts.length;i3++){
 				if(loans[counterpartyIndex].accounts[i3].title==title){
 					i2++
@@ -153,6 +155,7 @@ function createLoanEntry(section,counterpartyIndex,accountIndex){
 		var date=prompt(`
 			When did the transfer occur?\n
 			(format: yyyy-mm-dd)`)
+		if(!date)return
 		while(!/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/.test(date)){
 			alert(`You did not enter an acceptable date.`)
 			date=prompt(`
@@ -160,6 +163,7 @@ function createLoanEntry(section,counterpartyIndex,accountIndex){
 				(format: yyyy-mm-dd)`)
 		}
 		var transfer=prompt(`How much money was transferred?`)
+		if(!transfer)return
 		while(!/^\-?[0-9]+(\.[0-9][0-9]?)?$/.test(transfer)){
 			alert(`You did not enter an acceptable number.`)
 			var transfer=prompt(`
